@@ -1,0 +1,62 @@
+{% extends "gallery/layout.html" %}
+{% load static %}
+
+{% block body %}
+
+<div id="main">
+    <div id="add_box" data-display="true" >
+        <form action="{% url 'wardrobes' %}" method="post" id="add_wardrobe" class="d-flex flex-column justify-content-center align-items-center">
+            {% csrf_token %}
+            <label for="name">Wardrobe Name:</label>
+            <input type="text" id="name" name="name" placeholder="Wardrobe's name" required />
+            <label for="weather">Weather Condition:</label>
+            <select name="weather">
+                <option selected value="Clear">Clear</option>
+                <option value="Clouds">Clouds</option>
+                <option value="Rain">Rain</option>
+                <option value="Fog">Fog</option>
+                <option value="Snow">Snow</option>
+                <option value="Drizzle">Drizzle</option>
+            </select>
+            <input type="submit" value="Save" />
+        </form>
+    </div>
+
+    <button id="add">Add a wardrobe</button>
+    <h1>{{ user.username }}'s Wardrobes:</h1>
+
+    <div id="wardrobes" class="d-flex flex-row w-100 flex-wrap gap-3 justify-content-center" data-ward_id="{{wardrobe.id}}">
+        {% for wardrobe in wardrobes %}
+        <div id="id_{{wardrobe.id}}" class="wardrobe" data-ward_id="{{wardrobe.id}}">
+            <a data-display="false" href="{% url 'fit_handler' wardrobe.id %}" id="wardrobe_box">
+                <strong class="m-0 d-block" id="name">{{ wardrobe.name }}</strong>
+                <img id="weather" data-weather="{{ wardrobe.weather }}" src="../../static/assets/{{wardrobe.weather}}.svg" width="60" height="60" class="object-fit-contain m-1">
+            </a>
+            <div id="edit_box" data-display="true">
+                <input type="text" id="name" name="name" placeholder="Wardrobe's name" required />
+                <select id="weather" name="weather">
+                    <option value="Clear">Clear</option>
+                    <option value="Clouds">Clouds</option>
+                    <option value="Rain">Rain</option>
+                    <option value="Fog">Fog</option>
+                    <option value="Snow">Snow</option>
+                    <option value="Drizzle">Drizzle</option>
+                </select>
+                <input type="submit" value="Save" id="save"/>
+            </div>
+            <div>
+                <img class="me-2" src="../../static/assets/edit.svg" id="edit" alt="edit wardrobe" draggable="false">
+                <img class="ms-2" src="../../static/assets/delete.svg" id="delete" alt="delete wardrobe">
+            </div>
+        </div>
+        {% empty %}
+            No wardrobe found.
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+
+{% block script %}
+    <script src="{% static 'gallery/wardrobe.js' %}"> </script>
+{% endblock %}

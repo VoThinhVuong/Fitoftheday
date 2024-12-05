@@ -1,0 +1,47 @@
+{% extends "gallery/layout.html" %}
+{% load static %}
+
+
+{% block body %}
+<div id="main">
+    <div id="add_box" data-display="true" >
+        <form action="{% url 'fit_handler' wardrobe.id %}"  method="post" id="add_wardrobe">
+            {% csrf_token %}
+            <input type="text" name="head_img" placeholder="Headwear's image url"/>
+            <input type="text" name="upper_img" placeholder="Upperbody's image url" required />
+            <input type="text" name="lower_img" placeholder="Lowerbody's image url" required />
+            <input type="text" name="feet_img" placeholder="Footwear's image url" required />
+            <input type="submit" id="save" value="Save" />
+        </form>
+    </div>
+    <button id="add">Add a fit</button>
+    <h1>{{ wardrobe.name }}'s fits:</h1>
+    <div id="fits" style="user-select: none;" data-mouse-down-at="0" data-prev-percentage="0" draggable="false">
+    {% for fit in fits %}
+        <div id="id_{{ fit.id }}" class="fit" data-fit_id="{{ fit.id }}">
+            <img class="ps-2" src="../../static/assets/edit.svg" data-fit_id="{{ fit.id }}" id="edit" alt="edit fit" draggable="false">
+            <div data-display="false" id="fit_box" class="d-flex flex-column justify-content-center align-items-center ps-2" draggable="false">
+                <img id="head" src="{{ fit.head_img }}" draggable="false">
+                <img id="upper" src="{{ fit.upper_img }}" draggable="false">
+                <img id="lower" src="{{ fit.lower_img }}" draggable="false">
+                <img id="feet" src="{{ fit.feet_img }}" draggable="false">
+            </div>
+            <div id="edit_box" data-display="true" class="d-flex flex-column justify-content-center align-items-center ps-2" draggable="false">
+                <input name="head_img" id="head"></input>
+                <input name="upper_img" id="upper"></input>
+                <input name="lower_img" id="lower"></input>
+                <input name="feet_img" id="feet"></input>
+                <input type="submit" id="save" value="Save" />
+            </div>
+            <img class="pe-2" src="../../static/assets/delete.svg" data-fit_id="{{ fit.id }}" id="delete" alt="delete fit" draggable="false">
+        </div>
+    {% empty %}
+        No fit found.
+    {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'gallery/fit.js' %}"> </script>
+{% endblock %}

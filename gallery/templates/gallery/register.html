@@ -1,0 +1,22 @@
+{% extends "gallery/layout.html" %}
+
+{% block body %}
+
+
+<div id="main" class="w-100 h-100">
+    <h1>Fit of the day</h1>
+    <h2>Register</h2>
+    {% if message %}
+        <div>{{ message }}</div>
+    {% endif %}
+    <form action="{% url 'register' %}" method="post" class="d-flex flex-column justify-content-center align-items-center">
+        {%csrf_token%}
+        <input type="text" name="username" placeholder="Username">
+        <input type="email" name="email" placeholder="Email Address">
+        <input type="password" name="password" placeholder="Password">
+        <input type="password" name="confirmation" placeholder="Confirm Password">
+        <input type="submit" value="Register">
+        Already have an account? <a href="{% url 'login' %}">Log In here.</a>
+    </form>
+</div>
+{% endblock %}
