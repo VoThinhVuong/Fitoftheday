@@ -6,8 +6,11 @@ from django.db import IntegrityError
 import json
 import random
 from .models import User, Wardrobe, Fit
+from dotenv import load_dotenv
+import os
+load_dotenv()
 
-api_key = "b638a7170a16a726a3ed7de541163ffe"
+api_key = os.getenv('API_KEY')
 
 
 # Create your views here.
