@@ -32,6 +32,3 @@ Aside from the files/folder created by Django, the files I created are:
 * Open cmd and run $cd {the file path to the project}$.
 * Run $python manage.py migrate$.
 * Run $python manage.py runserver$ to start the application.
-
-# Others 
-* **About the API key**: The api key is located in views.py to help with running the application. Due to the nature of this project, this is the current solution to ensure functionality during grading that I can think of.
