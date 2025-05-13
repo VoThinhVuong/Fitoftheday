@@ -30,5 +30,5 @@ Aside from the files/folder created by Django, the files I created are:
 
 # Running the application
 * Open cmd and run $cd {the file path to the project}$.
-* Run $python manage.py migrate$.
-* Run $python manage.py runserver$ to start the application.
+* Run *python manage.py migrate*.
+* Run *python manage.py runserver* to start the application.
